@@ -17,11 +17,16 @@ df = df[(df["passenger_count"] > 0) & (df["passenger_count"] <= 8)]
 #4. Ensure range of latitudes is between -90 and 90
 
 
-#Create and justify atleast three derived features
+#Create and justify atleast additional (1) derived features
 #1. My ideas (pickup_days & pickup_hours to analyze rush hour) 
 #   free to create others but ensure there's a logical connection
 #   between existing elements
 
+# Creating derived quantity of pickup hour to analyze rush hours
+df["pickup_hour"] = pd.to_datetime(df["pickup_datetime"]).dt.hour
+
+#Creating derived quantity of pick up day to analyze weekday vs weekend traffic
+df["pickup_dayofweek"] = pd.to_datetime(df["pickup_datetime"]).dt.day_name()
 
 #Log for excluded transactionns
 
