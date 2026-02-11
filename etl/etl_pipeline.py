@@ -2,7 +2,7 @@ from trip_cleaning import clean_data
 from excluded_logs import split_transactions
 
 # Cleaning data
-df = clean_data("etl/raw_data/train.csv")
+df = clean_data("etl/raw_data/yellow_tripdata_2019-01.csv")
 
 # Separating the clean from the erroneous data
 cleaned_df, excluded_df = split_transactions(df)
