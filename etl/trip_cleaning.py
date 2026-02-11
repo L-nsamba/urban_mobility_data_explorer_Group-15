@@ -24,7 +24,29 @@ def clean_data(path):
     # Creating derived quantity of pickup hour to analyze rush hours
     df["pickup_hour"] = pd.to_datetime(df["tpep_pickup_datetime"]).dt.hour
 
-    #Creating derived quantity of pick up day to analyze weekday vs weekend traffic
+    #Creating derived quantity of pickup day to analyze weekday vs weekend traffic
     df["pickup_dayofweek"] = pd.to_datetime(df["tpep_pickup_datetime"]).dt.day_name()
+
+    # Creating derived quantity of trip duration (minutes)
+    # Also remvoing the outlier if the trip is negative or zero which is invalid
+    df["trip_duration_min"] = (pd.to_datetime(df["tpep_dropoff_datetime"])
+                               - pd.to_datetime(df["tpep_pickup_datetime"])).dt.total_seconds() / 60
+    df = df[df["trip_duration_min"] > 0]
+
+    # Creating derived quantity of fare per km to analyse the cost efficiency
+    # It is going to be fare_amount/trip distance
+    # To avoid division by zero
+    df = df[df["trip_distance"] > 0]
+    df["fare_per_km"] = df["fare_amount"] / df["trip_distance"]
+
+    # Removing outlier of unrealistic fare per km values
+    df = df[(df["fare_per_km"] >= 0) & (df["fare_per_km"] <= 100)]
+
+    # Creating derived quantity of average speed (km/h) to analyse congestion patterns
+    # It is calculated as (trip distance/ trip duration) / 60
+    df["average_speed_kmh"] = (df["trip_distance"] / df["trip_duration_min"]) / 60
+
+    # Removing outlier of unrealistic speed
+    df = df[(df["average_speed_kmh"] >= 0) & (df["fare_per_km"] <= 150)]
 
     return df
