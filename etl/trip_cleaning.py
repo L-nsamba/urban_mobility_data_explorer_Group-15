@@ -9,7 +9,7 @@ def clean_data(path):
         df = pd.read_csv(path)
 
     #Reading and accessing the dataset path
-    df = pd.read_csv(path)
+    df = pd.read_parquet(path)
 
     # Dropping rows if missing critical field
     df = df.dropna(subset=["tpep_pickup_datetime", "tpep_dropoff_datetime", "trip_distance"])
@@ -26,8 +26,5 @@ def clean_data(path):
 
     #Creating derived quantity of pick up day to analyze weekday vs weekend traffic
     df["pickup_dayofweek"] = pd.to_datetime(df["tpep_pickup_datetime"]).dt.day_name()
-
-    # #Creating derived quantity for trip duration
-    # df["trip_duration"] = (df["tpep_dropoff_datetime"] - df["tpep_pickup_datetime"]).dt.total_seconds()
 
     return df
