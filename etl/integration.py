@@ -22,7 +22,4 @@ def integrate_data(trips_path, lookup_path, zones_path):
     # Loading metadata 
     zones = gdp.read_file(zones_path)
 
-    # Conversion of shapefile to json
-    zones.to_file("etl/raw_data/taxi_zones/taxi_zones.json", driver="GeoJSON")
-
     return trips, zones
