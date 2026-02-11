@@ -11,15 +11,13 @@ df = df[(df["passenger_count"] > 0) & (df["passenger_count"] <= 8)]
 
 
 #Normalizing timestamp & formatting timestamp, coordinates and numeric fields
-# Source and Output Configurations
-INPUT_FILE = "urban_mobility_data_explorer_Group-15/etl/raw_data/train.csv" 
-OUTPUT_FILE = "urban_mobility_data_explorer_Group-15/etl/clean_data.csv"
+#Co-ordinate Configurations
 DECIMAL_PLACES = 4  # Accuracy only drops to about 11 metres.
 
 #Read CSV
-print(f"Reading {INPUT_FILE}...")
-df = pd.read_csv(INPUT_FILE)
-print(f"Loaded {len(df):,} rows")
+#print(f"Reading INPUT_FILE...")
+#df = pd.read_csv("etl/raw_data/train.csv")
+#print(f"Loaded {len(df):,} rows")
 
 #Normalize the timestamps to YYYY-MM-DD HH:MM:SS
 df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime']).dt.strftime('%Y-%m-%d %H:%M:%S')
