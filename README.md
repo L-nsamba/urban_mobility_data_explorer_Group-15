@@ -21,15 +21,33 @@ Coming soon.......
 
 #### 📂 PROJECT STRUCTURE
 ```plaintext
-├── backend/               
-├── database/           
-├── docs/                
+├── backend/
+|    ├── api/ 
+|    ├── app.py
+|    └── requirements.txt
+|                
+├── database/
+|    └── urban_mobility_data_explorer_schema.sql           
+├── docs/
+|    ├── urban_mobility_data_explorer_erd.pdf
+|    ├── urban_mobility_data_explorer_system_architecture.pdf
+|    └── api_endpoints.md                
 ├── etl/
+|    ├── processed_data/
+|    ├── raw_data/
+|    ├── etl_pipeline.py
+|    ├── excluded_logs.py
+|    ├── integration.py
+|    └── trip_cleaning.py
 ├── frontend/
+|    ├── index.html
+|    ├── styles/
+|    └── scripts/
 ├── .gitattributes
 ├── .gitignore
-├──  README.md
+└──  README.md
 ```
 
 🚧 more coming soonnn....................
+
 
