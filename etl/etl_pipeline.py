@@ -3,6 +3,7 @@ from excluded_logs import split_transactions
 from integration import integrate_data
 from sqlalchemy import create_engine
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 import os
 from dotenv import load_dotenv
 import pandas as pd
@@ -39,7 +40,7 @@ with engine.connect() as conn:
     count = conn.execute(text("SELECT COUNT (*) FROM zones")).scalar()
 
 if count == 0:
-    zones_df.to_sql("zones", engine, if_exists="append", index=False, chunksize=10000)
+    zones_df.to_sql("zones", engine, if_exists="append", index=False, chunksize=10000, method="multi")
     
 # Defining of the exact columns to enter into the Trip table before being passed into the db
 trip_columns = [
@@ -61,5 +62,9 @@ trip_columns = [
 trips_df = cleaned_df[trip_columns]
 
 # Injecting the cleaned data into the database
-trips_df.to_sql("trips", engine, if_exists="append", index=False, chunksize=10000)
+try:
+    trips_df.head(500000).to_sql("trips", engine, if_exists="append", index=False, chunksize=5000, method="multi")
+except SQLAlchemyError as e:
+    print("Insert failed:", e)
+    engine.dispose()
 print("Data successfully injected into database!")
