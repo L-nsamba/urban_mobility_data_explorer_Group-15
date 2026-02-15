@@ -27,13 +27,13 @@ Coming soon.......
 |    └── requirements.txt
 |                
 ├── database/
-|    └── urban_mobility_data_explorer_schema.sql           
+|    ├── database_setup.py
+|    └── sql_dump.sql           
 ├── docs/
 |    ├── urban_mobility_data_explorer_erd.pdf
 |    ├── urban_mobility_data_explorer_system_architecture.pdf
 |    └── api_endpoints.md                
 ├── etl/
-|    ├── processed_data/
 |    ├── raw_data/
 |    ├── etl_pipeline.py
 |    ├── excluded_logs.py
@@ -49,5 +49,6 @@ Coming soon.......
 ```
 
 🚧 more coming soonnn....................
+
 
 
