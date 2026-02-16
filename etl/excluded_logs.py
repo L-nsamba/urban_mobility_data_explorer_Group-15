@@ -44,6 +44,40 @@ def split_transactions(df):
     excluded_logs.append(bad_rows)
     df = df[~mask_bad].copy()
 
+    #5. Trip duration must be greater than 0
+    mask_bad = (df["trip_duration_min"] <= 0)
+    bad_rows = df[mask_bad].copy()
+    bad_rows["exclusion_reason"] = "Invalid trip_duration_min <= 0"
+    excluded_logs.append(bad_rows)
+    df = df[~mask_bad].copy()
+
+    #6. Average speed must be positive and greater than 0
+    mask_bad = (df["average_speed_kmh"] <= 0)
+    bad_rows = df[mask_bad].copy()
+    bad_rows["exclusion_reason"] = "Invalid average_speed_kmh <= 0"
+    excluded_logs.append(bad_rows)
+    df = df[~mask_bad].copy()
+
+    #7. Trip distance must be > 0
+    mask_bad = (df["trip_distance"] <= 0)
+    bad_rows = df[mask_bad].copy()
+    bad_rows["exclusion_reason"] = "Invalid trip_distance <= 0"
+    excluded_logs.append(bad_rows)
+    df = df[~mask_bad].copy()
+
+    #8. Dropoff must be after pickup
+    mask_bad = (df["tpep_dropoff_datetime"] <= df["tpep_pickup_datetime"])
+    bad_rows = df[mask_bad].copy()
+    bad_rows["exclusion_reason"] = "Dropoff before pickup"
+    excluded_logs.append(bad_rows)
+    df = df[~mask_bad].copy()
+
+    #9. Unrealistic high speed
+    mask_bad = (df["average_speed_kmh"] > 120)
+    bad_rows = df[mask_bad].copy()
+    bad_rows["exclusion_reason"] = "Unrealistic speed > 120 km/h"
+    excluded_logs.append(bad_rows)
+    df = df[~mask_bad].copy()
 
     cleaned_df = df
     excluded_df = pd.concat(excluded_logs, ignore_index=True) if excluded_logs else pd.DataFrame()
