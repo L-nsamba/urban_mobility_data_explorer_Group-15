@@ -35,7 +35,7 @@ def split_transactions(df):
     start_date = pd.Timestamp("2019-01-01")
     end_date = pd.Timestamp("2019-12-31 23:59:59")
 
-    mask_bad - (
+    mask_bad = (
         (df["tpep_pickup_datetime"] < start_date) |
         (df["tpep_pickup_datetime"] > end_date)
     )    
