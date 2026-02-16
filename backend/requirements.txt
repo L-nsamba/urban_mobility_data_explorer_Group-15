@@ -1,0 +1,4 @@
+flask
+pymysql
+sqlalchemy
+python-dotenv save your database credentials in a .env file and add it to .gitignore to prevent it from being committed to version control.
