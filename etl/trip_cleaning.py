@@ -37,7 +37,7 @@ def clean_data(path):
     # It is going to be fare_amount/trip distance
     # To avoid division by zero
     df = df[df["trip_distance"] > 0]
-    df["fare_per_km"] = (df["fare_amount"] / df["trip_distance"]).round(4)
+    df["fare_per_km"] = (df["fare_amount"] / df["trip_distance"]).round(2)
 
     # Removing outlier of unrealistic fare per km values
     df = df[(df["fare_per_km"] >= 0) & (df["fare_per_km"] <= 100)]

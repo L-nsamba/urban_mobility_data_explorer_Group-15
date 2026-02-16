@@ -33,7 +33,7 @@ def split_transactions(df):
 
     #4. Keeping only 2019 trips
     start_date = pd.Timestamp("2019-01-01")
-    end_date = pd.Timestamp("2019-01-31 23:59:59")
+    end_date = pd.Timestamp("2019-12-31 23:59:59")
 
     mask_bad = (
         (df["tpep_pickup_datetime"] < start_date) |
@@ -43,6 +43,7 @@ def split_transactions(df):
     bad_rows["exclusion_reason"] = "Outside 2019 date range"
     excluded_logs.append(bad_rows)
     df = df[~mask_bad].copy()
+
 
     cleaned_df = df
     excluded_df = pd.concat(excluded_logs, ignore_index=True) if excluded_logs else pd.DataFrame()

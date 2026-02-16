@@ -64,7 +64,7 @@ trips_df = cleaned_df[trip_columns]
 # Injecting the cleaned data into the database
 try: 
     with engine.begin() as conn:
-        trips_df.head(1000000).to_sql(
+        trips_df.head(3000000).to_sql(
             "trips",
             conn,
             if_exists="append",
