@@ -3,3 +3,5 @@ virtual_env
 .idea
 database/ca.pem
 .env
+ca.pem
+/home/michaelokinyi/urban_mobility_data_explorer_Group-15/ume/
