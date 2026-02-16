@@ -3,3 +3,5 @@ virtual_env
 .idea
 database/ca.pem
 .env
+ca.pem
+ume/ #venv name ignore it
