@@ -62,10 +62,11 @@ trip_columns = [
 ]
 
 # Filtering out only the columns we want to be displayed
-trips_df = cleaned_df[trip_columns]
+LIMIT_ROWS = 2_500_000
+trips_df = cleaned_df[trip_columns].iloc[:LIMIT_ROWS]
 
 # Injecting the cleaned data into the database
-chunksize = 2000
+chunksize = 5000
 total_rows = len(trips_df)
 
 with engine.connect() as conn:

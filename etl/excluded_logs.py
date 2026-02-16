@@ -33,7 +33,7 @@ def split_transactions(df):
 
     #4. Keeping only 2019 trips
     start_date = pd.Timestamp("2019-01-01")
-    end_date = pd.Timestamp("2019-12-31 23:59:59")
+    end_date = pd.Timestamp("2019-01-31 23:59:59")
 
     mask_bad = (
         (df["tpep_pickup_datetime"] < start_date) |
