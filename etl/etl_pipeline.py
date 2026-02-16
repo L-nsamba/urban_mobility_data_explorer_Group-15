@@ -28,8 +28,11 @@ engine = create_engine(
     f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}"
     f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
     connect_args={
-        "ssl" : {"ca": os.getenv("DB_CA")}
-    }
+        "ssl" : {"ca": os.getenv("DB_CA")}},
+    pool_pre_ping=True,
+    pool_recycle=1800,
+    pool_size=5,
+    max_overflow=10
 )
 
 # Injecting the zones csv data into the zones table
@@ -62,17 +65,28 @@ trip_columns = [
 trips_df = cleaned_df[trip_columns]
 
 # Injecting the cleaned data into the database
+chunksize = 2000
+total_rows = len(trips_df)
+
+with engine.connect() as conn:
+    already_inserted = conn.execute(text("SELECT COUNT(*) FROM trips")).scalar()
+print(f"Resuming from row {already_inserted} / {total_rows}")
+
 try: 
-    with engine.begin() as conn:
-        trips_df.head(3000000).to_sql(
-            "trips",
-            conn,
-            if_exists="append",
-            index=False,
-            chunksize=5000,
-            method="multi"
-        )
-    print("Data successfully injected into database!")
+    for start in range(already_inserted, total_rows, chunksize):
+        end = start + chunksize
+        chunk = trips_df.iloc[start:end]
+
+        with engine.begin() as conn:
+            chunk.to_sql(
+                "trips",
+                conn,
+                if_exists="append",
+                index=False,
+                method="multi"
+            )
+        print(f"Inserted rows {start + 1} to {min(end, total_rows)} / {total_rows}")
+    print("Data successfully injected!")
 
 except SQLAlchemyError as e:
     print("Insert failed:", e)
