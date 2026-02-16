@@ -63,7 +63,7 @@ trips_df = cleaned_df[trip_columns]
 
 # Injecting the cleaned data into the database
 try:
-    trips_df.head(1000000).to_sql("trips", engine, if_exists="append", index=False, chunksize=5000, method="multi")
+    trips_df.head(100).to_sql("trips", engine, if_exists="append", index=False, chunksize=5000, method="multi")
 except SQLAlchemyError as e:
     print("Insert failed:", e)
     engine.dispose()
