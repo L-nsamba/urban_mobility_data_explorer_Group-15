@@ -62,13 +62,15 @@ trip_columns = [
 ]
 
 # Filtering out only the columns we want to be displayed
+# Creating a limit of 2,500,000 million rows cause above that may cause service issues with Aiven in regards to RAM storage
 LIMIT_ROWS = 2_500_000
 trips_df = cleaned_df[trip_columns].iloc[:LIMIT_ROWS]
 
-# Injecting the cleaned data into the database
+# Setting how many rows we would  like to add on each deposit
 chunksize = 5000
 total_rows = len(trips_df)
 
+# Error handling incase the connection is affected during the data injection
 with engine.connect() as conn:
     already_inserted = conn.execute(text("SELECT COUNT(*) FROM trips")).scalar()
 print(f"Resuming from row {already_inserted} / {total_rows}")
