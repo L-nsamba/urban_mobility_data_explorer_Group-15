@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Blueprint
 from sqlalchemy import create_engine, text
 import os
 from dotenv import load_dotenv
@@ -6,17 +6,19 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Creating flask app
-app = Flask(__name__)
-
 # Database connection engine
 engine = create_engine(
     f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}"
     f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 )
 
+# Creating flask app
+app = Flask(__name__)
+
+trips_day_blueprint = Blueprint("trips_day", __name__)
+
 #Defining the endpoint
-@app.route('/trips_per_day', methods=['GET'])
+@trips_day_blueprint.route('/get_trips_per_day', methods=['GET'])
 def get_trips_per_day():
 
     query = text("""

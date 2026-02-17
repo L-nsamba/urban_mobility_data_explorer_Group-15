@@ -25,40 +25,31 @@ trips_hour_blueprint = Blueprint("trips_hour", __name__)
 def get_trips_per_hour():
 
     #Query parameter to filter trips for that specific date
-    date_filter = request.args.get("date")
-
-    if date_filter:
-        query = text("""
-            SELECT HOUR(tpep_pickup_datetime) AS trip_hour,
-                    COUNT(*) AS total_trips
-            FROM trips
-            WHERE DATE(tpep_pickup_datetime) = :date_filter
-            GROUP BY trip_hour
-            ORDER BY trip_hour;
-        """)
-        params = {"date_filter": date_filter}
-    else:
-        query = text("""
-             SELECT HOUR(tpep_pickup_datetime) AS trip_hour,
-                     COUNT(*) AS total_trips
-             FROM trips
-             GROUP BY trip_hour
-             ORDER BY trip_hour;
-        """)
-        params = {}
+    query = text("""
+    SELECT HOUR(tpep_pickup_datetime) AS trip_hour,
+        COUNT(*) AS total_trips
+    FROM trips
+    GROUP  BY trip_hour
+    ORDER BY trip_hour;
+""")
 
     try:
         with engine.connect() as conn:
-            result = conn.execute(query, params)
+            result = conn.execute(query)
 
             data = [
                 {"hour": int(row.trip_hour), "total_trips": int(row.total_trips)}
                 for row in result
             ]
 
-        return jsonify({"trips_per_hour": data}), 200
+        return jsonify({"trips_per_hour": data})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+if __name__ == "__main__":
+    with app.app_context():
+        response = get_trips_per_hour()
+        print(response.get_json())
 
 
