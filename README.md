@@ -53,6 +53,8 @@ This project is an enterprise-level full-stack application built using real-worl
 **Link to Database Design Documentation**: https://docs.google.com/document/d/18Bi2BIYgeXfUJe7Cec5Rh4WkCqROOQR2frSWPbLLxp0/edit?usp=sharing
 <br>
 
+<br>
+
 ### 🚀 GETTING STARTED FOR THE PROJECT (IN-PROGRESS)
 #### 1. Clone the repo:
  ```
@@ -108,5 +110,6 @@ This project is an enterprise-level full-stack application built using real-worl
 * This will the raw taxi trip data, apply exclusion rules, enrich with zone lookup and insert processed records into the datbase
 * ⚠️ <strong>Warning </strong>
 * The NYC Yellow Taxi Jan 2019 Dataset contains over 7 millions rows of data. It is advisable to check your RAM storage permissionns with your MYSQL client before running or only entering a significantly smaller number of rows (1-2 million) for test cases. 
+
 
 
