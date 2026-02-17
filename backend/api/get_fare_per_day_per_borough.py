@@ -13,8 +13,6 @@ engine = create_engine(
     }
 )
 
-app = Flask(__name__)
-
 # Using blueprint, it is the ideal for databases with large amounts of data
 fare_blueprint = Blueprint("fare", __name__)
 
@@ -50,8 +48,3 @@ def get_fare_per_day_per_borough():
         ]
         return jsonify({"fare_per_day_per_borough": data})
 
-# Local test case to ensure it retrieves the fare data
-if __name__ == "__main__":
-    with app.app_context():
-        response = get_fare_per_day_per_borough()
-        print(response.get_json())

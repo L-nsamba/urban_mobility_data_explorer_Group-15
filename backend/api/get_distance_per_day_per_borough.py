@@ -13,8 +13,6 @@ engine = create_engine(
     }
 )
 
-app = Flask(__name__) 
-
 # Using blueprint since it is ideal for handling databases with large amounts of data
 distance_blueprint = Blueprint("distance", __name__)
 
@@ -45,10 +43,4 @@ def get_distance_per_day_per_borough():
             for row in result
         ]
         return jsonify({"distance_per_day_borough": data})
-    
-# Local test case to ensure it retrieves data --> personal test case
-if __name__ == "__main__":
-    with app.app_context():
-        response = get_distance_per_day_per_borough()
-        print(response.get_json())
-    
+

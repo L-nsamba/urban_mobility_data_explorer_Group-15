@@ -15,8 +15,6 @@ engine = create_engine(
     }
 )
 
-app = Flask(__name__)
-
 #Define Blueprint
 trips_hour_blueprint = Blueprint("trips_hour", __name__)
 
@@ -47,9 +45,5 @@ def get_trips_per_hour():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
-    with app.app_context():
-        response = get_trips_per_hour()
-        print(response.get_json())
 
 

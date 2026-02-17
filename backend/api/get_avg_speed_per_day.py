@@ -14,8 +14,6 @@ engine = create_engine(
     }
 )
 
-app = Flask(__name__)
-
 avg_speed_blueprint = Blueprint("avg_speed", __name__)
 
 #id is passed directly in the URL e.g. /get_avg_speed_per_day/42
@@ -44,9 +42,3 @@ def get_avg_speed_per_day():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-#Local test case --> swap out the id as needed
-if __name__ == "__main__":
-    with app.app_context():
-        response = get_avg_speed_per_day()
-        print(response.get_json())

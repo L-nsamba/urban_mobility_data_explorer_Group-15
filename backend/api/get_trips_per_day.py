@@ -12,9 +12,6 @@ engine = create_engine(
     f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 )
 
-# Creating flask app
-app = Flask(__name__)
-
 trips_day_blueprint = Blueprint("trips_day", __name__)
 
 #Defining the endpoint
@@ -45,10 +42,4 @@ def get_trips_per_day():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-# Local test case to ensure it retrieves the fare data
-if __name__ == "__main__":
-    with app.app_context():
-        response = get_trips_per_day()
-        print(response.get_json())
 
