@@ -19,40 +19,34 @@ app = Flask(__name__)
 avg_speed_blueprint = Blueprint("avg_speed", __name__)
 
 #id is passed directly in the URL e.g. /get_avg_speed_per_day/42
-@avg_speed_blueprint.route("/get_avg_speed_per_day/<int:id>", methods=["GET"])
-def get_avg_speed_per_day(id):
+@avg_speed_blueprint.route("/get_avg_speed_per_day", methods=["GET"])
+def get_avg_speed_per_day():
     #Fetching the average_speed_kmh for a specific trip by its id
     query = text("""
-        SELECT trip_id, average_speed_kmh
+        SELECT DATE(tpep_pickup_datetime) AS trip_date,
+            ROUND(AVG(average_speed_kmh), 2) AS avg_speed_kmh
         FROM trips
-        WHERE trip_id = :id
-    """)
+        GROUP BY trip_date
+        ORDER BY trip_date;
+""")
 
-    with engine.connect() as conn:
-        result = conn.execute(query, {"id": id}).fetchone()
-
-        if result is None:
-            return jsonify({"error": f"No trip found with trip_id {id}"}), 404
-        
-        return jsonify({
-            "trip_id": result.trip_id,  
-            "average_speed_kmh": float(result.average_speed_kmh)
-        }), 200  #Success returns 200 status code
+    try:
+        with engine.connect() as conn:
+            result = conn.execute(query)
+            data =  [
+                {
+                    "date": str(row.trip_date),
+                    "avg_speed_kmh":  float(row.avg_speed_kmh)
+                }
+                for row in result
+            ]
+        return jsonify({"avg_speed_per_day": data})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 #Local test case --> swap out the id as needed
 if __name__ == "__main__":
     with app.app_context():
-        response = get_avg_speed_per_day(5003)
-        
-        #Properly handles tuple response and print JSON
-        if isinstance(response, tuple):
-            json_data = response[0].get_json()
-            status_code = response[1]
-            print(f"Status: {status_code}")
-            print(f"Data: {json_data}")
-        else:
-            print(response.get_json())
-
-#Examples
-#GET /get_avg_speed_per_day/1
-#GET /get_avg_speed_per_day/42
+        response = get_avg_speed_per_day()
+        print(response.get_json())
