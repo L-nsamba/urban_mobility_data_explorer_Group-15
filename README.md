@@ -46,6 +46,7 @@ This project is an enterprise-level full-stack application built using real-worl
 ├── .gitignore
 └──  README.md
 ```
+<br>
 
 ### 🛠 PROJECT PLAN & ARCHITECTURE
 **Link to System Architecture**: https://drive.google.com/file/d/1LCjnhGtCJYlr8gqgD0ch9cqHbQsDx4fg/view?usp=sharing
@@ -55,7 +56,7 @@ This project is an enterprise-level full-stack application built using real-worl
 
 <br>
 
-### 🚀 GETTING STARTED FOR THE PROJECT (IN-PROGRESS)
+### 🚀 GETTING STARTED FOR THE PROJECT 
 #### 1. Clone the repo:
  ```
      git clone https://github.com/L-nsamba/urban_mobility_data_explorer_Group-15.git
@@ -70,6 +71,7 @@ This project is an enterprise-level full-stack application built using real-worl
 ### OPTION A - Quick Setup (Import Pre-Populated Database)
 * 1️⃣ <strong> Import the dump </strong>
 * The repository includes a full SQL dump containing the database schema and cleaned data
+* ⚠️ <strong>Warning: </strong> The SQL dump contains over 2 million rows from the dataset. Ensure you have sufficient RAM storage before importation
 * CLI option:
  ```
     mysql -u <username> -p < urban_mobility_explorer-dump.sql
@@ -110,6 +112,7 @@ This project is an enterprise-level full-stack application built using real-worl
 * This will the raw taxi trip data, apply exclusion rules, enrich with zone lookup and insert processed records into the datbase
 * ⚠️ <strong>Warning </strong>
 * The NYC Yellow Taxi Jan 2019 Dataset contains over 7 millions rows of data. It is advisable to check your RAM storage permissionns with your MYSQL client before running or only entering a significantly smaller number of rows (1-2 million) for test cases. 
+
 
 
 
