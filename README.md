@@ -55,6 +55,8 @@ This project is an enterprise-level full-stack application built using real-worl
 <br>
 **Link to Database Design Documentation**: https://docs.google.com/document/d/18Bi2BIYgeXfUJe7Cec5Rh4WkCqROOQR2frSWPbLLxp0/edit?usp=sharing
 <br>
+**Link to Entity Relationship Diagram**: https://drive.google.com/file/d/1Cd5dWxY3CMglkRkfNaBEgtoPrRIrTHlp/view?usp=sharing
+<br>
 
 <br>
 
@@ -140,6 +142,7 @@ This project is an enterprise-level full-stack application built using real-worl
 * The MySQL dump dataset contains approximately 2.5 million records out of the 7.4 million, covering the period from January 1st, 2019 to January 12th, 2019
 * For more information about the api endpoint documentation: <br>
  ```cd docs/api_endpoints.md```
+
 
 
 
