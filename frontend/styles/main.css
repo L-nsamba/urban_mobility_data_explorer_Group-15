@@ -1,0 +1,84 @@
+*{
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 10px;
+    background-color: lightblue;
+    color: black;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.dashboard{
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dashboard .card:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 50%;
+}
+
+.main-content .heading{
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card{
+    background-color: lightblue;
+    color: black;
+    padding: 20px;
+    border-radius: 12px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3{
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.card canvas{
+    flex: 1;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 600px;
+    max-height: 400px;
+    margin: 0 auto;
+}
+
+.card select {
+    margin: 6px 6px 12px 0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+@media (max-width: 768px){
+    .dashboard{
+        grid-template-columns: 1fr;
+    }
+    .dashboard .card:last-child {
+        grid-column: auto;
+        width: 100%;
+        justify-self: stretch;
+    }
+}
