@@ -30,7 +30,7 @@ This project is an enterprise-level full-stack application built using real-worl
 |    └── api_endpoints.md
 ├── dsa/
 |    ├── frequency.py
-|    └── rank.py       
+|    └── merge_sort.py       
 ├── etl/
 |    ├── raw_data/
 |    ├── etl_pipeline.py
@@ -40,8 +40,10 @@ This project is an enterprise-level full-stack application built using real-worl
 ├── frontend/
 |    ├── index.html
 |    ├── styles/
+|    ├── charts/
 |    └── scripts/
-├── .env
+├── screenshots/
+├── .env.example
 ├── .gitattributes
 ├── .gitignore
 └──  README.md
@@ -62,7 +64,7 @@ This project is an enterprise-level full-stack application built using real-worl
      git clone https://github.com/L-nsamba/urban_mobility_data_explorer_Group-15.git
      cd urban_mobility_data_explorer_Group-15
  ```
-#### 2️⃣ Backend setup
+#### 2️⃣ Backend Setup
  ```
      cd backend
      pip install -r requirements.txt
@@ -114,7 +116,30 @@ This project is an enterprise-level full-stack application built using real-worl
 * This will the raw taxi trip data, apply exclusion rules, enrich with zone lookup and insert processed records into the database <br>
 ⚠️ <strong>Warning: </strong> The NYC Yellow Taxi Jan 2019 Dataset contains over 7 millions rows of data. It is advisable to check your RAM storage permissionns with your MYSQL client before running or only entering a significantly smaller number of rows (1-2 million) for test cases. 
 
+#### 4️⃣ Frontend Setup
+1. Ensure that ```app.py``` is running.
+* This facilitates the connection between the api_endpoints retrieving data from the database and the JavaScript logic in the frontend that creates the visualizations.
+```
+    python backend/app.py
+```
+2. Open with Live Server or run ``` http://127.0.0.1:5500/frontend/index.html ``` in your browser
 
+<br>
+
+### 📝 API IMPLEMENTATION
+
+| Endpoint | Method | Description |
+|----------- | --------| -------- |  
+| /api/get_trips_per_day | GET | Retrieves total number of trips from all yellow taxis from all boroughs |
+| /api/get_trips_per_hour | GET | Retrieves total number of trips from each hour of the day from all yellow taxis from all boroughs| 
+| /api/get_fare_per_day_per_borough | GET | Retrieves the daily fare total per borough |
+| /api/get_avg_speed_per_day | GET | Retrieves the average speed (in kmh) of all yellow taxis from all boroughs from each day |
+| /api/get_distance_per_day_per_borough | GET | Retrieves the total distance (in miles) of all yellow taxis from all boroughs from each day |
+
+#### 📌 NOTE
+* The MySQL dump dataset contains approximately 2.5 million records out of the 7.4 million, covering the period from January 1st, 2019 to January 12th, 2019
+* For more information about the api endpoint documentation: <br>
+ ```cd docs/api_endpoints.md```
 
 
 
