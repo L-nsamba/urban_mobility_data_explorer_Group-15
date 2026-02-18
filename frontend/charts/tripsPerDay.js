@@ -1,4 +1,3 @@
-// charts/tripsPerDay.js
 export function renderTripsPerDay(data) {
   const ctx = document.getElementById("tripsPerDayChart").getContext("2d");
 
