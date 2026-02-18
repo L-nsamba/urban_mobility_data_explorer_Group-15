@@ -20,6 +20,7 @@ export function renderTripsPerDay(data) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: true },
         title: { display: true, text: "NYC Trips per Day (Jan 1–12)" }
