@@ -124,6 +124,8 @@ This project is an enterprise-level full-stack application built using real-worl
 ```
 2. Open with Live Server or run ``` http://127.0.0.1:5500/frontend/index.html ``` in your browser
 
+<br>
+
 ### 📝 API IMPLEMENTATION
 
 | Endpoint | Method | Description |
@@ -135,6 +137,9 @@ This project is an enterprise-level full-stack application built using real-worl
 | /api/get_distance_per_day_per_borough | GET | Retrieves the total distance (in miles) of all yellow taxis from all boroughs from each day |
 
 #### 📌 NOTE
-* The MySQL dump dataset contains approximately 2.5 million records, covering the period from January 1st, 2019 to January 12th, 2019
+* The MySQL dump dataset contains approximately 2.5 million records out of the 7.4 million, covering the period from January 1st, 2019 to January 12th, 2019
+* For more information about the api endpoint documentation: <br>
+ ```cd docs/api_endpoints.md```
+
 
 
