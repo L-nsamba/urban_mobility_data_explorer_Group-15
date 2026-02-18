@@ -3,15 +3,10 @@ merge_sort.py
 
 Time Complexity: O(n log n)
 Space Complexity: O(n)
-Stable yes
 Sorting Order: Descending by default
 """
 
 from typing import List, Dict, Any
-from flask import Blueprint, jsonify
-from sqlalchemy import create_engine, text
-import os
-from dotenv import load_dotenv
 
 # Merge sort implementation
 def merge_sort(arr: List[Dict[str, Any]], key: str, descending: bool = True) -> List[Dict[str, Any]]:
@@ -77,69 +72,18 @@ def merge(left: List[Dict[str, Any]], right: List[Dict[str, Any]], key: str, des
 
     return result
 
-# Flask Endpoint
-
-load_dotenv()
-
-engine = create_engine(
-    f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}"
-    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
-    connect_args={"ssl": {"ssl_ca": os.getenv('DB_CA')}}
-)
-
-top5_blueprint = Blueprint('top5', __name__)
-
-@top5_blueprint.route("/top5_busiest_boroughs", methods=["GET"])
-def top5_busiest_boroughs() -> Any:
-    """
-    Results the top 5 busiest boroughs based on total distance traveled.
-
-    steps:
-    1. Aggregate total distance per borough from the trips table.
-    2. Convert the result to a list of dictionaries.
-    3. Sort the list using merge sort in descending order.
-    4. Return the top 5 results as JSON.
-
-    Returns:
-        JSON response with keys:
-            - 'borough': str
-            - 'total_distance': float
-
-    """
-
-    query = text("""
-        SELECT z.borough AS borough, ROUND(SUM(t.trip_distance), 2) AS total_distance
-        FROM trips t
-        JOIN zones z ON t.PULocationID = z.LocationID
-        GROUP BY z.borough
-    """)
-
-    with engine.connect() as conn:
-        result = conn.execute(query)
-        
-        borough_totals: List[Dict[str, Any]] = [
-            {"borough": row.borough, "total_distance": float(row.total_distance)} for row in result
-        ]
-    
-    sorted_boroughs = merge_sort(
-        borough_totals,
-        key="total_distance",
-        descending=True
-    )
-
-    #Take top 5
-    top5 = sorted_boroughs[:5]
-
-    return jsonify({"top_5_busiest_boroughs": top5})
-
 if __name__ == "__main__":
-    sample_data = [
-        {"borough": "Manhattan", "total_distance": 500000},
-        {"borough": "Brooklyn", "total_distance": 300000},
-        {"borough": "Queens", "total_distance": 225000},
-        {"borough": "Bronx", "total_distance": 20000},
-        {"borough": "Staten Island", "total_distance": 10000}
+    # Actual values from the dataset manually hardcoded
+    distance_per_day_borough = [
+        {"borough": "null", "date": "2019-01-01","total_distance": 255.34},
+        {"borough": "Bronx", "date": "2019-01-01","total_distance": 255.34},
+        {"borough": "Brooklyn", "date": "2019-01-01","total_distance": 19059.11},
+        {"borough": "EWR", "date": "2019-01-01","total_distance": 41.28},
+        {"borough": "Manhattan", "date": "2019-01-01","total_distance": 441704.33},
+        {"borough": "Queens", "date": "2019-01-01","total_distance": 183997.31},
+        {"borough": "Staten Island", "date": "2019-01-01","total_distance":  166.69},
+        {"borough": "Unknown", "date": "2019-01-01","total_distance": 8908.72}
     ]
 
     print("Top 5 boroughs sorted by total_distance(descending):")
-    print(merge_sort(sample_data, key="total_distance", descending=True))
+    print(merge_sort(distance_per_day_borough, key="total_distance", descending=True))
