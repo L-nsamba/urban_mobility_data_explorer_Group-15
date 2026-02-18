@@ -2,6 +2,7 @@ import { renderTripsPerDay } from './charts/tripsPerDay.js';
 import { renderTopRushHours } from './charts/rushHours.js';
 import { renderTripsPerHour} from "./charts/tripsPerHour.js";
 import { renderAverageSpeedPerDay } from './charts/avgSpeedPerDayPerBorough.js';
+import { renderFarePerDayPerBorough } from './charts/dailyFarePerBorough.js';
 
 async function loadTripsPerDay() {
   try {
@@ -39,9 +40,24 @@ async function loadAverageSpeedPerDay() {
   }
 }
 
+async function loadFarePerDayPerBorough() {
+    try {
+        const response = await fetch("http://localhost:5000/api/get_fare_per_day_per_borough");
+        const json = await response.json();
+
+        renderFarePerDayPerBorough(json.fare_per_day_per_borough);
+    } catch (err) {
+        console.error("Error fetching fare per day per borough:", err);
+    }
+}
+
 // Run when page loads
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([loadTripsPerDay(), loadTripsPerHour(),loadAverageSpeedPerDay()])
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadFarePerDayPerBorough();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
