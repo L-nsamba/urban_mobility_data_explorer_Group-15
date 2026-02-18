@@ -1,5 +1,6 @@
 import { renderTripsPerDay } from './charts/tripsPerDay.js';
 import { renderTopRushHours } from './charts/rushHours.js';
+import { renderTripsPerHour} from "./charts/tripsPerHour.js";
 
 async function loadTripsPerDay() {
   try {
@@ -13,9 +14,21 @@ async function loadTripsPerDay() {
   }
 }
 
+async function loadTripsPerHour(){
+  try {
+    const response = await fetch("http://localhost:5000/api/get_trips_per_hour");
+    const data= await response.json();
+
+    renderTripsPerHour(data.trips_per_hour)
+  }
+  catch(err){
+    console.error("Error fetching trips per hour:", err);
+  }
+}
+
 // Run when page loads
 document.addEventListener("DOMContentLoaded", () => {
-  loadTripsPerDay();
+  Promise.all([loadTripsPerDay(), loadTripsPerHour()])
 });
 
 document.addEventListener("DOMContentLoaded", () => {
