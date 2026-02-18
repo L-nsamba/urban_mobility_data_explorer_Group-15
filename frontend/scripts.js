@@ -2,6 +2,10 @@ import { renderTripsPerDay } from './charts/tripsPerDay.js';
 import { renderTopRushHours } from './charts/rushHours.js';
 import { renderTripsPerHour} from "./charts/tripsPerHour.js";
 import { renderAverageSpeedPerDay } from './charts/avgSpeedPerDayPerBorough.js';
+import { renderFarePerDayPerBorough } from './charts/dailyFarePerBorough.js';
+
+document.getElementById("fareDateFilter").addEventListener("change", updateFareChart);
+document.getElementById("fareBoroughFilter").addEventListener("change", updateFareChart);
 
 async function loadTripsPerDay() {
   try {
@@ -39,9 +43,43 @@ async function loadAverageSpeedPerDay() {
   }
 }
 
+async function loadFarePerDayPerBorough() {
+    try {
+        const response = await fetch("http://localhost:5000/api/get_fare_per_day_per_borough");
+        const json = await response.json();
+        // Storing the full dataset in memory to help with the sorting and filtering functionality
+        fareData = json.fare_per_day_per_borough;
+        renderFarePerDayPerBorough(json.fare_per_day_per_borough);
+    } catch (err) {
+        console.error("Error fetching fare per day per borough:", err);
+    }
+}
+// Creation of global variable to hold the fare dataset 
+let fareData = []
+
+// Creation of function to update the fare chart 
+function updateFareChart(){
+  const selectedDate = document.getElementById("fareDateFilter").value;
+  const selectedBorough = document.getElementById("fareBoroughFilter").value;
+
+  let filtered = fareData;
+
+  if (selectedDate !== "all" ) {
+    filtered = filtered.filter(d => d.date === selectedDate );
+  }
+  if (selectedBorough !== "all") {
+    filtered = filtered.filter(d => d.borough === selectedBorough);
+  }
+  // Rendering chart with filtered data
+  renderFarePerDayPerBorough(filtered)
+}
 // Run when page loads
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([loadTripsPerDay(), loadTripsPerHour(),loadAverageSpeedPerDay()])
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadFarePerDayPerBorough();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
