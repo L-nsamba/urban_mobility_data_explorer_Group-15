@@ -9,8 +9,8 @@ header{
     align-items: center;
     text-align: center;
     padding: 10px 10px;
-    background-color: darkcyan;
-    color: white;
+    background-color: lightblue;
+    color: black;
 }
 
 header h1 {
@@ -25,12 +25,15 @@ header h1 {
     gap: 20px;
 }
 .main-content .heading{
-    padding-left: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .card{
-    background-color: darkcyan;
-    color: white;
+    background-color: lightblue;
+    color: black;
     padding: 20px;
     border-radius: 12px;
     min-height: 250px;
