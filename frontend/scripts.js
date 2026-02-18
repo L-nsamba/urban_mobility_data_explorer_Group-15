@@ -1,5 +1,6 @@
 import { renderTripsPerDay } from './charts/tripsPerDay.js';
 import { renderTopRushHours } from './charts/rushHours.js';
+import { renderAverageSpeedPerDay } from './charts/avgSpeedPerDayPerBorough.js';
 
 async function loadTripsPerDay() {
   try {
@@ -13,9 +14,25 @@ async function loadTripsPerDay() {
   }
 }
 
+async function loadAverageSpeedPerDay() {
+  try {
+    const response = await fetch("http://localhost:5000/api/get_avg_speed_per_day");
+    const json = await response.json();
+
+    // Pass the data to Chart.js renderer
+    renderAverageSpeedPerDay(json.avg_speed_per_day);
+  } catch (err) {
+    console.error("Error fetching average speed per day:", err);
+  }
+}
+
 // Run when page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadTripsPerDay();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadAverageSpeedPerDay();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
