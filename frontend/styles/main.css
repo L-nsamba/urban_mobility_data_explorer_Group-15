@@ -24,6 +24,13 @@ header h1 {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
+.dashboard .card:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 50%;
+}
+
 .main-content .heading{
     flex-direction: row;
     align-items: center;
@@ -44,6 +51,8 @@ header h1 {
 .card h3{
     margin: 0 0 10px 0;
     font-size: 18px;
+    text-align: center;
+    font-weight: 600;
 }
 
 .card canvas{
