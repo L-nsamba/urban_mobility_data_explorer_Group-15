@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 10px;
+    background-color: darkcyan;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.dashboard{
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.main-content .heading{
+    padding-left: 20px;
+}
+
+.card{
+    background-color: darkcyan;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3{
+    margin: 0;
+    font-size: 18px;
+}
+
+.card canvas{
+    flex: 1;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (max-width: 768px){
+    .dashboard{
+        grid-template-columns: 1fr;
+    }
+}
