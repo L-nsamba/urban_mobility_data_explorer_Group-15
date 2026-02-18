@@ -132,8 +132,8 @@ This project is an enterprise-level full-stack application built using real-worl
 
 | Endpoint | Method | Description |
 |----------- | --------| -------- |  
-| /api/get_trips_per_day | GET | Retrieves total number of trips from all yellow taxis from all boroughs |
-| /api/get_trips_per_hour | GET | Retrieves total number of trips from each hour of the day from all yellow taxis from all boroughs| 
+| /api/get_trips_per_day | GET | Retrieves the daily total number of trips from all yellow taxis from all boroughs |
+| /api/get_trips_per_hour | GET | Retrieves total number of trips from each hour of the day from all yellow taxis from all boroughs during the specified time frame/ days | 
 | /api/get_fare_per_day_per_borough | GET | Retrieves the daily fare total per borough |
 | /api/get_avg_speed_per_day | GET | Retrieves the average speed (in kmh) of all yellow taxis from all boroughs from each day |
 | /api/get_distance_per_day_per_borough | GET | Retrieves the total distance (in miles) of all yellow taxis from all boroughs from each day |
@@ -142,6 +142,7 @@ This project is an enterprise-level full-stack application built using real-worl
 * The MySQL dump dataset contains approximately 2.5 million records out of the 7.4 million, covering the period from January 1st, 2019 to January 12th, 2019
 * For more information about the api endpoint documentation: <br>
  ```cd docs/api_endpoints.md```
+
 
 
 
