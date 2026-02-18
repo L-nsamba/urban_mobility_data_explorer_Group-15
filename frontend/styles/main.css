@@ -21,7 +21,7 @@ header h1 {
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 .main-content .heading{
@@ -39,7 +39,7 @@ header h1 {
 }
 
 .card h3{
-    margin: 0;
+    margin: 0 0 10px 0;
     font-size: 18px;
 }
 
@@ -48,6 +48,15 @@ header h1 {
     width: 100% !important;
     height: 100% !important;
 }
+
+.card select {
+    margin: 6px 6px 12px 0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
 
 @media (max-width: 768px){
     .dashboard{

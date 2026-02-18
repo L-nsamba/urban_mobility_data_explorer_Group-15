@@ -24,27 +24,76 @@
             <section class="dashboard">
                 <div class="card">
                     <h3>Trips Per Day</h3>
-                    <canvas id="tripsPerDay"></canvas>
-                </div>
-
-                <div class="card">
-                    <h3>Trips Per Hour</h3>
-                    <canvas id="tripsPerHour"></canvas>
-                </div>
-
-                <div class="card">
-                    <h3>Top Pickup Zones</h3>
-                    <canvas id="busiestBoroughs"></canvas>
+                    <select id="tripsDateFilter">
+                    <option value="all">All Dates</option>
+                    <option value="2019-01-01">2019-01-01</option>
+                    <option value="2019-01-02">2019-01-02</option>
+                    <option value="2019-01-03">2019-01-03</option>
+                    <option value="2019-01-04">2019-01-04</option>
+                    <option value="2019-01-05">2019-01-05</option>
+                    <option value="2019-01-06">2019-01-06</option>
+                    <option value="2019-01-07">2019-01-07</option>
+                    <option value="2019-01-08">2019-01-08</option>
+                    <option value="2019-01-09">2019-01-09</option>
+                    <option value="2019-01-10">2019-01-10</option>
+                    <option value="2019-01-11">2019-01-11</option>
+                    <option value="2019-01-12">2019-01-12</option>
+                    </select> 
+                    <canvas id="tripsPerDayChart"></canvas>
                 </div>
 
                 <div class="card">
                     <h3>Daily Fare Per Borough </h3>
-                    <canvas id="dailyFare"></canvas>
+                    <select id="fareDateFilter">
+                        <option value="all">All Dates</option>
+                        <option value="2019-01-01">2019-01-01</option>
+                        <option value="2019-01-02">2019-01-02</option>
+                        <option value="2019-01-03">2019-01-03</option>
+                        <option value="2019-01-04">2019-01-04</option>
+                        <option value="2019-01-05">2019-01-05</option>
+                        <option value="2019-01-06">2019-01-06</option>
+                        <option value="2019-01-07">2019-01-07</option>
+                        <option value="2019-01-08">2019-01-08</option>
+                        <option value="2019-01-09">2019-01-09</option>
+                        <option value="2019-01-10">2019-01-10</option>
+                        <option value="2019-01-11">2019-01-11</option>
+                        <option value="2019-01-12">2019-01-12</option>
+                    </select>
+                    <select id="fareBoroughFilter">
+                        <option value="all">All Boroughs</option>
+                        <option value="EWR">EWR</option>
+                        <option value="Manhattan">Manhattan</option>
+                        <option value="Bronx">Bronx</option>
+                        <option value="Brooklyn">Brooklyn</option>
+                        <option value="Queens">Queens</option>
+                        <option value="Staten Island">Staten Island</option>
+                    </select>
+                    <canvas id="dailyFareChart"></canvas>
                 </div>
 
                 <div class="card">
                     <h3>Average speed per Day Per Borough </h3>
-                    <canvas id="dailyFare"></canvas>
+                    <select id="speedDateFilter">
+                        <option value="all">All Dates</option>
+                        <option value="2019-01-01">2019-01-01</option>
+                        <option value="2019-01-02">2019-01-02</option>
+                        <option value="2019-01-03">2019-01-03</option>
+                        <option value="2019-01-04">2019-01-04</option>
+                        <option value="2019-01-05">2019-01-05</option>
+                        <option value="2019-01-06">2019-01-06</option>
+                        <option value="2019-01-07">2019-01-07</option>
+                        <option value="2019-01-08">2019-01-08</option>
+                        <option value="2019-01-09">2019-01-09</option>
+                        <option value="2019-01-10">2019-01-10</option>
+                        <option value="2019-01-11">2019-01-11</option>
+                        <option value="2019-01-12">2019-01-12</option>
+                    </select>
+                    <canvas id="averageSpeedChart"></canvas>
+                </div>
+
+                <div class="card">
+                    <h3>Top Pickup Zones</h3>
+                    <canvas id="busiestBoroughsChart"></canvas>
                 </div>
 
             </section>
