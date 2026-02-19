@@ -4,6 +4,9 @@
 This project is an enterprise-level full-stack application built using real-world urban mobility data from the New York City January 2019 Taxi Trip  dataset. The application involves cleaning and processing raw trip data, storing it in a relational database, developing a backend for data queries, and creating a frontend dashboard to explore urban mobility patterns.
 <br>
 
+### 📹 VIDEO WALKTHROUGH
+* Link to Video Walkthrough - 
+
 ### ⚙️ TECH STACK
 ### Backend
 * <strong>Language : </strong> Python 3.13.12
@@ -94,7 +97,6 @@ This project is an enterprise-level full-stack application built using real-worl
     trips
     zones
  ```
-* The API endpoints can run immediately without executing the ETL pipeline. Re-running the ETL pipeline may cause duplication of data <br>
 
 <strong> 3. Create ```env``` file and configure environment variables </strong>
  ```
@@ -105,6 +107,7 @@ This project is an enterprise-level full-stack application built using real-worl
      DB_NAME=your_database_name
      DB_CA=path_to_ssl_certificate
  ```
+* After configuration of the env variables, the API endpoints can run immediately without executing the ETL pipeline. Re-running the ETL pipeline may cause duplication of data <br>
 
 #### OPTION B - FULL SETUP (RUN ETL PIPELINE)
 <strong> 1. Create an empty database and respective tables </strong>
@@ -140,7 +143,7 @@ This project is an enterprise-level full-stack application built using real-worl
 ```
     python backend/app.py
 ```
-2. Open with Live Server or run ``` http://127.0.0.1:5500/frontend/index.html ``` in your browser
+2. Open with Live Server or  ``` http://127.0.0.1:5500/frontend/index.html ``` in your browser
 
 <br>
 
@@ -185,3 +188,11 @@ function get_top_rush_hours(data, top_n):
 * <strong> Time Complexity: </strong> O(n * k) <br>
 where n is number of hours and k is top_n
 
+<br>
+
+### 🏅 Contributors
+-  [**Leon Nsamba**](https://github.com/L-nsamba)
+-  [**Mufaro Kunze Victoria**](https://github.com/mufaro-k07)
+-  [**Mitchell Barure**](https://github.com/MitchellBarure)
+-  [**Michael Okinyi Odhiambo**](https://github.com/Mich-O)
+-  [**Queen Ruth Uwera**](https://github.com/Queenu-7)
