@@ -5,7 +5,7 @@ This project is an enterprise-level full-stack application built using real-worl
 <br>
 
 ### 📹 VIDEO WALKTHROUGH
-* Link to Video Walkthrough - 
+* Link to Video Walkthrough - https://www.youtube.com/watch?v=Y-rv4fBcSP8
 
 ### ⚙️ TECH STACK
 ### Backend
@@ -196,3 +196,4 @@ where n is number of hours and k is top_n
 -  [**Mitchell Barure**](https://github.com/MitchellBarure)
 -  [**Michael Okinyi Odhiambo**](https://github.com/Mich-O)
 -  [**Queen Ruth Uwera**](https://github.com/Queenu-7)
+
