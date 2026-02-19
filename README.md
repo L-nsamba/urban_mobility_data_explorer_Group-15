@@ -14,6 +14,8 @@ This project is an enterprise-level full-stack application built using real-worl
 
 ### Frontend
 * <strong>Frontend Stack : </strong> HTML, CSS & JavaScript
+* <strong> Visualization library : </strong> Chart.js loaded with CDN link
+
 
 ### 📂 PROJECT STRUCTURE
 ```plaintext
@@ -42,7 +44,7 @@ This project is an enterprise-level full-stack application built using real-worl
 |    ├── styles/
 |    ├── charts/
 |    └── scripts/
-├── screenshots/
+├──  screenshots/
 ├── .env.example
 ├── .gitattributes
 ├── .gitignore
@@ -56,6 +58,8 @@ This project is an enterprise-level full-stack application built using real-worl
 **Link to Database Design Documentation**: https://docs.google.com/document/d/18Bi2BIYgeXfUJe7Cec5Rh4WkCqROOQR2frSWPbLLxp0/edit?usp=sharing
 <br>
 **Link to Entity Relationship Diagram**: https://drive.google.com/file/d/1Cd5dWxY3CMglkRkfNaBEgtoPrRIrTHlp/view?usp=sharing
+<br>
+**Link to Team Task Sheet**: https://docs.google.com/spreadsheets/d/1XiErLULWkkmRA7p3rEI9EjFccse1BbkV0Dui4VnG4Kc/edit?usp=sharing
 <br>
 
 <br>
@@ -72,10 +76,12 @@ This project is an enterprise-level full-stack application built using real-worl
      pip install -r requirements.txt
  ```
 #### 3️⃣ Database Setup
-### OPTION A - Quick Setup (Import Pre-Populated Database)
+
+<strong>⚠️ Warning: </strong> The NYC Yellow Taxi Jan 2019 Dataset contains over 7 millions rows of data, with the MySQL dump containing 2.5 million rows. It is advisable to check your RAM storage permissionns with your MYSQL client before running or only entering a significantly smaller number of rows (1-2 million) for test cases. <br>
+
+#### OPTION A - QUICK SETUP (IMPORT PRE-POPULATED DATABASE)
 <strong> 1.  Import the dump </strong>
 * The repository includes a full SQL dump containing the database schema and cleaned data <br>
-⚠️ <strong>Warning: </strong> The SQL dump contains over 2 million rows from the dataset. Ensure you have sufficient RAM storage before importation
 * CLI option:
  ```
     mysql -u <username> -p < urban_mobility_explorer-dump.sql
@@ -88,19 +94,25 @@ This project is an enterprise-level full-stack application built using real-worl
     trips
     zones
  ```
-* The API endpoints can run immediately without executing the ETL pipeline. Re-running the ETL pipeline may cause duplication of data
+* The API endpoints can run immediately without executing the ETL pipeline. Re-running the ETL pipeline may cause duplication of data <br>
 
-### OPTION B - Full Setup (Run ETL Pipeline)
+<strong> 3. Create ```env``` file and configure environment variables </strong>
+ ```
+     DB_USER=your_user
+     DB_PASS=your_password
+     DB_HOST=your_host
+     DB_PORT=your_port
+     DB_NAME=your_database_name
+     DB_CA=path_to_ssl_certificate
+ ```
+
+#### OPTION B - FULL SETUP (RUN ETL PIPELINE)
 <strong> 1. Create an empty database and respective tables </strong>
 * Use this option if you want to recreate the database and populate it from scratch <br>
 ```
-    CREATE DATABASE <your_database_name>
-    USE <your_database_name>
-    CREATE TABLE trips;
-    CREATE TABLE zones;    
+    CREATE DATABASE <your_database_name>    
 ```
-<strong> 2. Configure environment variables </strong>
-* Create a ```.env``` file:
+<strong> 2. Create ```env``` file and configure environment variables </strong>
  ```
      DB_USER=your_user
      DB_PASS=your_password
@@ -111,12 +123,16 @@ This project is an enterprise-level full-stack application built using real-worl
  ```
 * You can access this information from your MYSQL client of choice e.g Aiven <br>
 
-<strong> 3.  Run the ETL pipeline to populate </strong>
+<strong> 3.  Run ```database_setup.py``` to establish connection to the database and create the respective tables </strong>
+```
+    python database/database_setup.py
+```
+
+<strong> 4.  Run the ETL pipeline to populate </strong>
  ```
     python etl/etl_pipeline.py
  ```
 * This will the raw taxi trip data, apply exclusion rules, enrich with zone lookup and insert processed records into the database <br>
-⚠️ <strong>Warning: </strong> The NYC Yellow Taxi Jan 2019 Dataset contains over 7 millions rows of data. It is advisable to check your RAM storage permissionns with your MYSQL client before running or only entering a significantly smaller number of rows (1-2 million) for test cases. 
 
 #### 4️⃣ Frontend Setup
 1. Ensure that ```app.py``` is running.
@@ -142,8 +158,30 @@ This project is an enterprise-level full-stack application built using real-worl
 * The MySQL dump dataset contains approximately 2.5 million records out of the 7.4 million, covering the period from January 1st, 2019 to January 12th, 2019
 * For more information about the api endpoint documentation: <br>
  ```cd docs/api_endpoints.md```
+* For more information about the dashboard visualizations, check out the  ```screenshots/``` folder which contains images of the charts and graphs
 
+<br>
 
+### 🧮 ALGORITHMIC LOGIC (DSA INTEGRATION)
+The file ```dsa/frequency.py``` implements a custom algorithm to identify the top 5 rush hours from the dataset. This was done without using built-in libraries like ```sort_values``` , ```heapq``` or ```Counter```
 
+* <strong> Problem: </strong> Finding the busiest hours of the day based on trip counts
+* <strong>Approach:</strong> Repeatedly scanning the dataset to locate the largest total_trips, append it to the results, and remove it from the working list until the top N (5) hours are found
+* <strong>Pseudo Code</strong>
+```
+function get_top_rush_hours(data, top_n):
+    trips_copy = copy of data
+    top_hour = empty list
 
+    for i = 1 to top_n:
+        max_idx = 0
+        for j = 1 to length(trips_copy) - 1:
+            if trips_copy[j].total_trips > trips_copy[max_idx].total_trips:
+                max_idx = j --> Manually finding the maximum element on each iteration  
+        append trips_copy[max_idx] to top_hours
+        remove trips_copy[max_idx] from trips_copy                               
+    return top_hours
+```
+* <strong> Time Complexity: </strong> O(n * k) <br>
+where n is number of hours and k is top_n
 
